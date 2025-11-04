@@ -1,0 +1,180 @@
+:root {
+  color-scheme: light;
+  --tide: #083344;
+  --tide-2: #0f3d4c;
+  --foam: #f3efe4;
+  --card: #fffdf8;
+  --ink: #102027;
+  --muted: #3e515b;
+  --line: #d9d2c3;
+  --lagoon: #0f766e;
+  --lagoon-ink: #042f2e;
+  --signal: #9a3412;
+  --signal-bg: #ffedd5;
+  --critical: #9f1239;
+  --critical-bg: #ffe4e6;
+  --ok: #14532d;
+  --ok-bg: #dcfce7;
+  --focus: #0f766e;
+  --shadow: 0 16px 40px rgba(8, 51, 68, 0.08);
+  font-family: "Atkinson Hyperlegible", "Segoe UI", sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  background: var(--foam);
+  color: var(--ink);
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--foam); color: var(--ink); }
+body.large-text { font-size: 21px; }
+body.contrast {
+  --foam: #000;
+  --card: #000;
+  --ink: #fff;
+  --muted: #fff;
+  --line: #ff0;
+  --tide: #000;
+  --tide-2: #000;
+  --lagoon: #ff0;
+  --lagoon-ink: #000;
+  --signal: #ff0;
+  --signal-bg: #000;
+  --critical: #ff0;
+  --critical-bg: #000;
+  --ok: #ff0;
+  --ok-bg: #000;
+  --focus: #ff0;
+  background: #000;
+  color: #fff;
+}
+img { max-width: 100%; }
+a { color: var(--lagoon-ink); }
+body.contrast a { color: #ff0; }
+button, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -40px;
+  background: #fff;
+  color: #000;
+  padding: 8px 12px;
+  z-index: 5;
+}
+.skip:focus { top: 12px; }
+
+.topbar {
+  background: var(--tide);
+  color: #f4f1ea;
+  padding: 20px 24px 16px;
+}
+.topbar-inner, .shell { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+.brand { display: flex; justify-content: space-between; gap: 16px; align-items: end; flex-wrap: wrap; }
+.word { font-family: Fraunces, Georgia, serif; font-size: 2.4rem; font-weight: 680; letter-spacing: -0.04em; margin: 0; }
+.tag { margin: 0; max-width: 36ch; }
+.nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.nav a, .tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: #f4f1ea;
+  text-decoration: none;
+  background: transparent;
+}
+.nav a[aria-current="page"], .tool[aria-pressed="true"] { background: #f4f1ea; color: var(--tide); }
+.banner {
+  width: min(1120px, calc(100% - 32px));
+  margin: 16px auto 0;
+  padding: 12px 16px;
+  background: #fff7e8;
+  color: #3f2a12;
+  border-left: 6px solid #c2410c;
+}
+body.contrast .banner { background: #000; color: #ff0; border-color: #ff0; }
+main { padding: 24px 0 64px; }
+.grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+h1, h2, h3 { line-height: 1.2; margin: 0 0 8px; }
+h1 { font-family: Fraunces, Georgia, serif; font-size: 2.1rem; }
+.lead { color: var(--muted); margin-top: 0; }
+label { display: block; font-weight: 700; margin: 14px 0 6px; }
+textarea, input[type="text"], input[type="file"] {
+  width: 100%;
+  border: 2px solid var(--line);
+  background: var(--card);
+  border-radius: 12px;
+  padding: 12px;
+}
+textarea { min-height: 140px; resize: vertical; }
+.actions, .tools { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+button.primary, button.secondary, a.button {
+  min-height: 56px;
+  border-radius: 14px;
+  padding: 12px 16px;
+  border: 2px solid var(--tide-2);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+button.primary, a.button { background: var(--tide-2); color: #f4f1ea; }
+button.secondary { background: transparent; color: var(--ink); }
+button:disabled { opacity: 0.65; cursor: wait; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip, .severity {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-weight: 700;
+}
+.severity.LOW { background: var(--ok-bg); color: var(--ok); }
+.severity.MODERATE { background: #fef9c3; color: #713f12; }
+.severity.HIGH { background: var(--signal-bg); color: var(--signal); }
+.severity.CRITICAL { background: var(--critical-bg); color: var(--critical); }
+body.contrast .severity { background: #000; color: #ff0; border-color: #ff0; }
+.alert-sheet { border-top: 8px solid var(--critical); }
+.alert-sheet h2 { font-size: 1.7rem; }
+.alert-sheet ul { padding-left: 1.2rem; }
+.note { color: var(--muted); }
+.error { background: var(--critical-bg); color: var(--critical); padding: 12px; border-radius: 12px; }
+.map-wrap { height: min(72vh, 760px); border-radius: 18px; overflow: hidden; border: 1px solid var(--line); }
+.leaflet-container { height: 100%; width: 100%; background: #d5e3ea; font: inherit; }
+.stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.stat strong { display: block; font-family: Fraunces, Georgia, serif; font-size: 2rem; }
+.list { display: flex; flex-direction: column; gap: 12px; }
+.row { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+.bars { display: flex; flex-direction: column; gap: 8px; }
+.bar { height: 12px; background: var(--lagoon); border-radius: 99px; }
+.photo-preview { display: grid; gap: 8px; }
+.photo-frame { position: relative; }
+.photo-frame img, .photo-frame canvas { width: 100%; border-radius: 12px; }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0; }
+.swatch { width: 14px; height: 14px; border-radius: 99px; display: inline-block; margin-right: 6px; }
+.prose { max-width: 72ch; }
+.prose h2 { margin-top: 28px; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 900px) {
+  .grid, .split, .stats { grid-template-columns: 1fr; }
+  .word { font-size: 2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; }
+}
+@media (prefers-contrast: more) {
+  button.primary, a.button { outline: 2px solid currentColor; }
+}

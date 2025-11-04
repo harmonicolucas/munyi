@@ -1,0 +1,174 @@
+{
+  "cluster_window_hours": 12,
+  "cluster_radius_km": 0.4,
+  "text_similarity_with_coords": 0.15,
+  "text_similarity_with_place_text": 0.25,
+  "flood_terms": ["inund", "agua", "alag", "cheia", "enxurrada", "flood", "water"],
+  "landslide_terms": ["desliz", "desabamento", "landslide", "mudslide"],
+  "severity_terms": {
+    "CRITICAL": [
+      "pessoas presas",
+      "pessoa presa",
+      "nao conseguem sair",
+      "nao consegue sair",
+      "arrastad",
+      "submers",
+      "no telhado",
+      "people are trapped",
+      "people trapped",
+      "cannot get out",
+      "swept away"
+    ],
+    "HIGH": [
+      "subir rapidamente",
+      "rising fast",
+      "water is rising",
+      "a subir",
+      "is rising",
+      "carros parados",
+      "cars are stopped",
+      "cars stopped",
+      "sem conseguir atravessar",
+      "nao consegue atravessar",
+      "nao conseguem atravessar",
+      "cannot cross",
+      "pela cintura",
+      "pelos joelhos",
+      "corrente forte",
+      "waist deep"
+    ],
+    "MODERATE": [
+      "agua acumulada",
+      "acumulad",
+      "chuva forte",
+      "drenagem",
+      "standing water",
+      "heavy rain",
+      "pooled"
+    ],
+    "LOW": ["pouca agua", "chuva fraca", "humidade", "light rain", "little water"]
+  },
+  "rising_terms": ["a subir", "subir rapidamente", "a aumentar", "rising fast", "water is rising", "is rising"],
+  "falling_terms": ["a baixar", "ja passou", "a descer", "recuou", "receding", "went down", "already passed"],
+  "people_terms": ["pessoas", "crianc", "idos", "aluno", "familia", "bebe", "morador", "people", "children", "child", "elderly"],
+  "stopwords": [
+    "que", "com", "para", "uma", "uns", "umas", "por", "nao", "sem", "mas", "dos", "das",
+    "the", "and", "near", "with", "from", "this", "that", "are", "was", "were", "has",
+    "have", "there", "several", "into", "onto", "but", "not", "they", "them", "sua", "seu"
+  ],
+  "safe_claim_terms": [
+    "estrada segura",
+    "estrada esta segura",
+    "pode atravessar",
+    "podes atravessar",
+    "podem atravessar",
+    "e seguro atravessar",
+    "seguro atravessar",
+    "pode passar de carro",
+    "safe to cross",
+    "road is safe",
+    "roads are safe",
+    "safe to drive",
+    "it is safe"
+  ],
+  "depth_claim_terms": [
+    "metros de profund",
+    "metro de profund",
+    "profundidade de",
+    "metres deep",
+    "meters deep",
+    "depth of",
+    "cm de profund"
+  ],
+  "generic_places": ["rua", "estrada", "agua", "water", "road", "zona", "area", "place"],
+  "labels": {
+    "pt": {"LOW": "Baixo", "MODERATE": "Moderado", "HIGH": "Alto", "CRITICAL": "Crítico"},
+    "en": {"LOW": "Low", "MODERATE": "Moderate", "HIGH": "High", "CRITICAL": "Critical"}
+  },
+  "actions": {
+    "pt": {
+      "LOW": [
+        "Mantenha-se atento à chuva.",
+        "Evite zonas baixas se a água aumentar.",
+        "Aguarde informações confirmadas."
+      ],
+      "MODERATE": [
+        "Não atravesse a água acumulada.",
+        "Afaste-se da zona mais baixa.",
+        "Procure um local mais alto.",
+        "Aguarde informações confirmadas."
+      ],
+      "HIGH": [
+        "Não atravesse a água.",
+        "Afaste-se da estrada.",
+        "Procure um local seguro e mais alto.",
+        "Ajude crianças e idosos a afastar-se, se puder fazê-lo sem entrar na água.",
+        "Aguarde informações confirmadas."
+      ],
+      "CRITICAL": [
+        "Não entre na água.",
+        "Afaste-se já para um local mais alto.",
+        "Se estiver em perigo imediato, contacte os serviços de emergência da sua zona.",
+        "Não volte à estrada inundada.",
+        "Aguarde informações confirmadas."
+      ]
+    },
+    "en": {
+      "LOW": [
+        "Watch the rain.",
+        "Avoid low ground if the water rises.",
+        "Wait for confirmed information."
+      ],
+      "MODERATE": [
+        "Do not walk through standing water.",
+        "Move away from the lowest ground.",
+        "Look for higher ground.",
+        "Wait for confirmed information."
+      ],
+      "HIGH": [
+        "Do not walk through the water.",
+        "Move away from the road.",
+        "Look for a higher, safer place.",
+        "Help children and older people move away only if you can do so without entering the water.",
+        "Wait for confirmed information."
+      ],
+      "CRITICAL": [
+        "Do not enter the water.",
+        "Move now to higher ground.",
+        "If you are in immediate danger, contact local emergency services.",
+        "Do not go back to the flooded road.",
+        "Wait for confirmed information."
+      ]
+    }
+  },
+  "landslide_actions": {
+    "pt": ["Afaste-se de encostas, muros e postes."],
+    "en": ["Move away from slopes, walls, and poles."]
+  },
+  "unknown_actions": {
+    "pt": [
+      "Não foi possível confirmar que isto é uma inundação.",
+      "Diga o local e o que a água está a fazer.",
+      "Não atravesse zonas alagadas enquanto espera."
+    ],
+    "en": [
+      "This report is not confirmed as a flood.",
+      "Say where you are and what the water is doing.",
+      "Do not walk through flood water while you wait."
+    ]
+  },
+  "unconfirmed_danger_actions": {
+    "pt": [
+      "O relato indica perigo, mas o tipo ainda não está confirmado.",
+      "Afaste-se da zona.",
+      "Não atravesse água nem escombros.",
+      "Aguarde informações confirmadas."
+    ],
+    "en": [
+      "The report describes danger, but the type is not confirmed.",
+      "Move away from the area.",
+      "Do not cross water or debris.",
+      "Wait for confirmed information."
+    ]
+  }
+}

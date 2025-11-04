@@ -1,0 +1,64 @@
+{
+  "label": {
+    "pt": "Rede viária de teste — Maputo",
+    "en": "Test road network — Maputo"
+  },
+  "disclaimer": {
+    "pt": "Percurso de demonstração numa rede viária de teste. Não é uma rota real de evacuação. Não confirma que alguma estrada esteja segura.",
+    "en": "Demonstration path on a test road network. This is not a real evacuation route. It does not mean any road is safe."
+  },
+  "outside_reason": {
+    "pt": "O ponto está fora da rede viária de teste. Não foi inventado nenhum percurso.",
+    "en": "This point is outside the test road network. No path was invented."
+  },
+  "closed_start_reason": {
+    "pt": "O ponto de partida está junto de um relato de inundação. Afaste-se da água para um local mais alto. Não foi calculado nenhum percurso a atravessar essa zona.",
+    "en": "The starting point is next to a flood report. Move away from the water to higher ground. No path was drawn through that area."
+  },
+  "no_path_reason": {
+    "pt": "Não há percurso de teste que evite os troços marcados como inundados. Isto não significa que outra estrada seja segura.",
+    "en": "There is no test path that avoids the segments marked as flooded. This does not mean another road is safe."
+  },
+  "no_origin_reason": {
+    "pt": "Sem coordenadas do ponto de partida. O mapa não inventa a sua posição.",
+    "en": "No starting coordinates. The map does not invent your position."
+  },
+  "exclusion_radius_km": 0.35,
+  "max_start_distance_km": 25,
+  "nodes": [
+    {"id": "baixa", "name": "Baixa", "lat": -25.9692, "lng": 32.5732},
+    {"id": "alto_mae", "name": "Alto Maé", "lat": -25.962, "lng": 32.56},
+    {"id": "malhangalene", "name": "Malhangalene", "lat": -25.95, "lng": 32.57},
+    {"id": "escola", "name": "Escola (nó de teste)", "lat": -25.9605, "lng": 32.59},
+    {"id": "polana", "name": "Polana", "lat": -25.955, "lng": 32.605},
+    {"id": "hulene", "name": "Hulene", "lat": -25.93, "lng": 32.575}
+  ],
+  "edges": [
+    {"id": "baixa-alto_mae", "from": "baixa", "to": "alto_mae", "name": "Troço de teste Baixa–Alto Maé"},
+    {"id": "baixa-malhangalene", "from": "baixa", "to": "malhangalene", "name": "Troço de teste Baixa–Malhangalene"},
+    {"id": "malhangalene-alto_mae", "from": "malhangalene", "to": "alto_mae", "name": "Troço de teste Malhangalene–Alto Maé"},
+    {"id": "baixa-escola", "from": "baixa", "to": "escola", "name": "Troço de teste Baixa–Escola"},
+    {"id": "escola-polana", "from": "escola", "to": "polana", "name": "Troço de teste Escola–Polana"},
+    {"id": "malhangalene-hulene", "from": "malhangalene", "to": "hulene", "name": "Troço de teste Malhangalene–Hulene"}
+  ],
+  "shelters": [
+    {
+      "id": "abrigo-alto-mae",
+      "node": "alto_mae",
+      "name": {"pt": "Ponto de assistência Alto Maé (demonstração)", "en": "Alto Maé assistance point (demonstration)"},
+      "note": {
+        "pt": "Ponto fictício para demonstração. Não é um abrigo oficial.",
+        "en": "Fictional point for the demonstration. Not an official shelter."
+      }
+    },
+    {
+      "id": "abrigo-polana",
+      "node": "polana",
+      "name": {"pt": "Ponto de assistência Polana (demonstração)", "en": "Polana assistance point (demonstration)"},
+      "note": {
+        "pt": "Ponto fictício para demonstração. Não é um abrigo oficial.",
+        "en": "Fictional point for the demonstration. Not an official shelter."
+      }
+    }
+  ]
+}

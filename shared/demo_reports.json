@@ -1,0 +1,47 @@
+[
+  {
+    "id": "INC-001",
+    "description": "A água está a subir rapidamente na estrada próxima da escola. Existem vários carros parados e pessoas sem conseguir atravessar.",
+    "location_text": "Estrada próxima da escola",
+    "latitude": -25.9605,
+    "longitude": 32.59,
+    "channel": "text",
+    "hours_ago": 2
+  },
+  {
+    "id": "INC-002",
+    "description": "Água acumulada na Rua da Resistência, junto à escola. Há carros parados.",
+    "location_text": "Rua da Resistência",
+    "latitude": -25.9612,
+    "longitude": 32.5906,
+    "channel": "text",
+    "hours_ago": 1.6
+  },
+  {
+    "id": "INC-003",
+    "description": "Fotografei a Rua da Resistência. Há água na mesma zona e há carros parados.",
+    "location_text": "Rua da Resistência",
+    "latitude": -25.9608,
+    "longitude": 32.5894,
+    "channel": "photo",
+    "hours_ago": 1.2
+  },
+  {
+    "id": "INC-004",
+    "description": "Vi água a subir mas não sei dizer a rua.",
+    "location_text": "",
+    "latitude": null,
+    "longitude": null,
+    "channel": "voice",
+    "hours_ago": 0.4
+  },
+  {
+    "id": "INC-005",
+    "description": "Na Rua da Resistência, junto à escola, a água já passou e está a baixar. Os carros estavam parados.",
+    "location_text": "Rua da Resistência",
+    "latitude": -25.961,
+    "longitude": 32.5902,
+    "channel": "text",
+    "hours_ago": 0.2
+  }
+]

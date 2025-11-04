@@ -99,8 +99,8 @@ def segment_image(image_bytes: bytes, content_type: str, width: int, height: int
         "reason": None
         if boxes
         else (
-            "O SAM 3.1 respondeu, mas esta versão não converteu a máscara em geometria desenhável."
+            "A resposta chegou, mas esta versão não converteu a região marcada em geometria desenhável."
             if language == "pt"
-            else "SAM 3.1 replied, but this version could not turn the mask into drawable geometry."
+            else "A reply arrived, but this version could not turn the marked region into drawable geometry."
         ),
     }

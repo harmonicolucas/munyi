@@ -52,7 +52,7 @@ function copy(lang) {
       alertSlide: (label, area, actions) =>
         `Landslide alert. ${label} risk. A landslide was reported at ${area}. ${actions}`,
       alertOther: (actions) => `Report received. This is not confirmed as a flood. ${actions}`,
-      sam: "SAM 3.1 runs on the backend when the key is configured. A picture alone does not measure depth.",
+      sam: "A picture alone does not measure depth.",
     };
   }
   return {
@@ -72,7 +72,7 @@ function copy(lang) {
     alertSlide: (label, area, actions) =>
       `Alerta de deslizamento. Risco ${label}. Existe um deslizamento reportado em ${area}. ${actions}`,
     alertOther: (actions) => `Relato recebido. Ainda não está confirmado como inundação. ${actions}`,
-    sam: "A segmentação SAM 3.1 corre no backend quando a chave está configurada. Uma imagem sozinha não mede profundidade.",
+    sam: "Uma imagem sozinha não mede profundidade.",
   };
 }
 

@@ -114,7 +114,7 @@ export default function ReportPage() {
       return;
     }
     const rec = new Rec();
-    rec.lang = store.lang === "en" ? "en-US" : "pt-PT";
+    rec.lang = store.lang === "en" ? "en-US" : "pt-MZ";
     rec.interimResults = true;
     rec.onresult = (event) => {
       let text = "";
@@ -149,7 +149,7 @@ export default function ReportPage() {
       if (data.transcript) {
         setDescription(data.transcript);
         setChannel("voice");
-        setInfo(data.source || "");
+        setInfo(t.transcript);
       } else {
         setError(data.error || "—");
       }

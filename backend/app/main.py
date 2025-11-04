@@ -5,20 +5,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from app.config import settings
-from app.database import Base, SessionLocal, engine
+from app.database import Base, engine
 from app.routes import geo, health, incidents
-from app.services.incident_service import seed_if_empty
-
-
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     settings.upload_dir.mkdir(parents=True, exist_ok=True)
     Base.metadata.create_all(bind=engine)
-    db = SessionLocal()
-    try:
-        seed_if_empty(db)
-    finally:
-        db.close()
     yield
 
 

@@ -6,7 +6,7 @@ from app.database import get_db
 from app.models.incident import Incident
 from app.schemas import IncidentIn, StatusIn
 from app.services.images import ImageRejected
-from app.services.incident_service import create_incident, reset_demo, seed_if_empty, set_status, stats, to_public
+from app.services.incident_service import create_incident, reset_demo, set_status, stats, to_public
 from app.services.voice_service import transcribe
 
 router = APIRouter()
@@ -106,7 +106,6 @@ def post_reset(db: Session = Depends(get_db)):
     if not settings.enable_demo_reset:
         raise HTTPException(status_code=403, detail="A reposição de demonstração está desligada.")
     reset_demo(db)
-    seed_if_empty(db)
     return {"reset": True}
 
 

@@ -37,7 +37,7 @@ export default function AlertCard({ incident, compact = false }) {
       return;
     }
     const utter = new SpeechSynthesisUtterance(incident.simple_alert);
-    utter.lang = incident.lang === "en" ? "en-US" : "pt-PT";
+    utter.lang = incident.lang === "en" ? "en-US" : "pt-MZ";
     utter.rate = 0.95;
     utter.onend = () => setSpeaking(false);
     synth.cancel();
@@ -52,7 +52,7 @@ export default function AlertCard({ incident, compact = false }) {
           {label}
         </span>
         <span className="chip">{t[TYPE_KEY[incident.incident_type]] || incident.incident_type}</span>
-        <span className="chip">{source}</span>
+        {incident.source === "demo_seed" || incident.source === "deterministic_rules" ? <span className="chip">{source}</span> : null}
       </p>
       <h2>{incident.summary}</h2>
       <p>{incident.simple_alert}</p>

@@ -10,8 +10,9 @@ export default function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<ReportPage />} />
+        <Route path="/" element={<MapPage />} />
         <Route path="/mapa" element={<MapPage />} />
+        <Route path="/relato" element={<ReportPage />} />
         <Route path="/painel" element={<DashboardPage />} />
         <Route path="/alerta/:id" element={<AlertPage />} />
         <Route path="/sobre" element={<AboutPage />} />

@@ -13,7 +13,7 @@ def transcribe(audio: bytes, filename: str) -> dict:
         return {
             "transcript": "",
             "source": settings.asr_model,
-            "error": "Muse Voice Transcribe accepts a mono 16-bit WAV file at 16 kHz or 24 kHz. Read the browser transcript, or upload a WAV.",
+            "error": "Upload a mono 16-bit WAV file at 16 kHz or 24 kHz, or use the dictation in this page and read it before sending.",
         }
     request = {
         "mode": "PUSH_TO_TALK",

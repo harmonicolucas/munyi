@@ -17,7 +17,6 @@ export default function DashboardPage() {
     <div className="shell">
       <h1>{t.dashTitle}</h1>
       <p className="lead">{t.dashLead}</p>
-      {stats ? <p className="note">{stats.metrics_note}</p> : null}
       <section className="stats">
         <article className="card"><span>{t.total}</span><strong>{stats?.total ?? "—"}</strong></article>
         <article className="card"><span>{t.pending}</span><strong>{stats?.pending_confirmation ?? "—"}</strong></article>
@@ -63,7 +62,7 @@ export default function DashboardPage() {
                 <h3>
                   <Link to={`/alerta/${incident.id}`}>{incident.summary}</Link>
                 </h3>
-                <p>{new Date(incident.created_at).toLocaleString(store.lang === "en" ? "en" : "pt")}</p>
+                <p>{new Date(incident.created_at).toLocaleString(store.lang === "en" ? "en" : "pt-MZ")}</p>
               </div>
               <div className="actions">
                 <button type="button" className="secondary" onClick={() => store.mark(incident.id, "confirmed")}>

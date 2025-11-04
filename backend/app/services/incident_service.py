@@ -66,7 +66,7 @@ def create_incident(
         analysis["source"] = "deterministic_rules"
         analysis["model"] = None
         analysis["meta_error"] = error
-        analysis["notes"] = list(dict.fromkeys([*analysis.get("notes", []), "Muse Spark não respondeu. A leitura visível veio das regras determinísticas."]))
+        analysis["notes"] = list(dict.fromkeys(analysis.get("notes", [])))
     elif model is None:
         analysis["meta_error"] = None
 
@@ -249,4 +249,3 @@ def reset_demo(db: Session) -> None:
     if settings.upload_dir.exists():
         for path in settings.upload_dir.glob("*.jpg"):
             path.unlink(missing_ok=True)
-    seed_if_empty(db)

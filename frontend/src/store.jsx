@@ -1,24 +1,26 @@
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { createLocal, localStats, mapContext, planRoute, seedLocal, setLocalStatus } from "./lib/engine";
+import { createLocal, localStats, mapContext, planRoute, setLocalStatus } from "./lib/engine";
 import * as api from "./services/api";
 
-const KEY = "munyi.incidents.v1";
+const KEY = "munyi.incidents.v3";
 const StoreContext = createContext(null);
 
 function loadLocal() {
   try {
     const saved = JSON.parse(localStorage.getItem(KEY) || "null");
-    if (Array.isArray(saved) && saved.length) return saved;
+    if (Array.isArray(saved)) return saved;
   } catch {
-    /* use the seed below */
+    /* start with an empty report list */
   }
-  const seeded = seedLocal();
-  localStorage.setItem(KEY, JSON.stringify(seeded));
-  return seeded;
+  return [];
+}
+
+function apiLang(lang) {
+  return lang === "en" ? "en" : "pt";
 }
 
 export function StoreProvider({ children }) {
-  const [lang, setLangState] = useState(() => localStorage.getItem("munyi.lang") || "pt");
+  const [lang, setLangState] = useState(() => (localStorage.getItem("munyi.locale") === "pt-MZ" ? "pt-MZ" : "en"));
   const [contrast, setContrast] = useState(() => localStorage.getItem("munyi.contrast") === "1");
   const [largeText, setLargeText] = useState(() => localStorage.getItem("munyi.large") === "1");
   const [mode, setMode] = useState("checking");
@@ -29,7 +31,7 @@ export function StoreProvider({ children }) {
   if (incidentsRef.current === null) incidentsRef.current = incidents;
 
   useEffect(() => {
-    document.documentElement.lang = lang === "en" ? "en" : "pt";
+    document.documentElement.lang = lang === "en" ? "en" : "pt-MZ";
     document.body.classList.toggle("contrast", contrast);
     document.body.classList.toggle("large-text", largeText);
   }, [lang, contrast, largeText]);
@@ -84,8 +86,9 @@ export function StoreProvider({ children }) {
     () => ({
       lang,
       setLang(next) {
-        localStorage.setItem("munyi.lang", next);
-        setLangState(next);
+        const value = next === "pt-MZ" ? "pt-MZ" : "en";
+        localStorage.setItem("munyi.locale", value);
+        setLangState(value);
       },
       contrast,
       toggleContrast() {
@@ -115,7 +118,7 @@ export function StoreProvider({ children }) {
                   latitude: input.latitude,
                   longitude: input.longitude,
                   channel: input.channel,
-                  lang: input.lang,
+                  lang: apiLang(input.lang),
                 },
                 file,
               )
@@ -125,7 +128,7 @@ export function StoreProvider({ children }) {
                 latitude: input.latitude,
                 longitude: input.longitude,
                 channel: input.channel || "text",
-                lang: input.lang,
+                lang: apiLang(input.lang),
               });
           await refresh("api");
           return created;
@@ -150,16 +153,15 @@ export function StoreProvider({ children }) {
           await refresh("api");
           return;
         }
-        const rows = seedLocal();
-        persist(rows);
+        persist([]);
       },
       async route(latitude, longitude) {
-        if (mode === "api") return api.requestRoute(latitude, longitude, lang);
-        return planRoute(latitude, longitude, incidentsRef.current, lang);
+        if (mode === "api") return api.requestRoute(latitude, longitude, apiLang(lang));
+        return planRoute(latitude, longitude, incidentsRef.current, apiLang(lang));
       },
       async context() {
-        if (mode === "api") return api.getMapContext(lang);
-        return mapContext(lang);
+        if (mode === "api") return api.getMapContext(apiLang(lang));
+        return mapContext(apiLang(lang));
       },
       transcribe: api.transcribeWav,
     }),

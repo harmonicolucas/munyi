@@ -12,7 +12,7 @@ export default function AlertPage() {
     return (
       <div className="shell">
         <p>{t.empty}</p>
-        <Link to="/">{t.navReport}</Link>
+        <Link to="/">{t.navMap}</Link>
       </div>
     );
   }

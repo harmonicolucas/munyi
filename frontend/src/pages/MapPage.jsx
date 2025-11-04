@@ -215,7 +215,7 @@ export default function MapPage() {
       <FloodMap
         incidents={store.incidents}
         route={route}
-        shelters={context?.shelters || []}
+        shelters={route ? context?.shelters || [] : []}
         focus={focus}
         lang={store.lang}
         layer={layer}

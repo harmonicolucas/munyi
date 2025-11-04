@@ -8,8 +8,8 @@ export default function AboutPage() {
       <h1>{en ? "How MUNYI works" : "Como o MUNYI funciona"}</h1>
       <p>
         {en
-          ? "The map shows a rainfall outlook for any point in the world. The numbers come from the Open-Meteo forecast. A 30-day figure is scaled from the next seven days, with a season weight for the hemisphere. It is not a river-gauge reading and it does not mean a road is safe."
-          : "O mapa mostra uma perspectiva de chuva para qualquer ponto do mundo. Os números vêm da previsão Open-Meteo. O valor de 30 dias é escalado a partir dos sete dias seguintes, com um peso de época segundo o hemisfério. Não é uma medição de rio e não significa que uma estrada esteja segura."}
+          ? "The tables show the published Open-Meteo rainfall and, where a river cell exists, the GloFAS discharge for that cell. A percentage further down is calculated on this page from the rainfall. It is not a published flood warning and it does not mean a road is safe."
+          : "As tabelas mostram a chuva publicada pela Open-Meteo e, quando existe uma célula de rio, a descarga GloFAS dessa célula. A percentagem mais abaixo é calculada nesta página a partir da chuva. Não é um aviso de inundação publicado e não significa que uma estrada esteja segura."}
       </p>
       <p>
         {en

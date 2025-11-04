@@ -55,6 +55,7 @@ export function scoreForecast(data) {
     elevation: data.elevation,
     timezone: data.timezone,
     retrievedAt: new Date().toISOString(),
+    days: [...past, ...future].map((row) => ({ ...row, kind: row.time < today ? "issued" : "forecast" })),
     future,
     recent3,
     next7,
@@ -69,7 +70,7 @@ export function scoreForecast(data) {
   };
 }
 
-export async function fetchOutlook(lat, lng) {
+export function rainfallUrl(lat, lng) {
   const url = new URL("https://api.open-meteo.com/v1/forecast");
   url.searchParams.set("latitude", Number(lat).toFixed(4));
   url.searchParams.set("longitude", Number(lng).toFixed(4));
@@ -77,9 +78,59 @@ export async function fetchOutlook(lat, lng) {
   url.searchParams.set("past_days", "3");
   url.searchParams.set("forecast_days", "7");
   url.searchParams.set("timezone", "auto");
+  return url;
+}
+
+export function riverUrl(lat, lng) {
+  const url = new URL("https://flood-api.open-meteo.com/v1/flood");
+  url.searchParams.set("latitude", Number(lat).toFixed(4));
+  url.searchParams.set("longitude", Number(lng).toFixed(4));
+  url.searchParams.set("daily", "river_discharge,river_discharge_mean");
+  url.searchParams.set("past_days", "3");
+  url.searchParams.set("forecast_days", "7");
+  url.searchParams.set("timezone", "auto");
+  return url;
+}
+
+export function formatFlow(value) {
+  if (value == null || Number.isNaN(value)) return "—";
+  const abs = Math.abs(value);
+  if (abs >= 100) return value.toFixed(0);
+  if (abs >= 10) return value.toFixed(1);
+  return value.toFixed(2);
+}
+
+export async function fetchOutlook(lat, lng) {
+  const url = rainfallUrl(lat, lng);
   const response = await fetch(url);
   if (!response.ok) throw new Error("forecast unavailable");
-  return scoreForecast(await response.json());
+  const outlook = scoreForecast(await response.json());
+  outlook.sourceUrl = url.toString();
+  return outlook;
+}
+
+export async function fetchRiver(lat, lng) {
+  const url = riverUrl(lat, lng);
+  const response = await fetch(url);
+  if (!response.ok) throw new Error("river unavailable");
+  const data = await response.json();
+  const today = localDay(data.utc_offset_seconds || 0);
+  const discharge = data.daily?.river_discharge || [];
+  const mean = data.daily?.river_discharge_mean || [];
+  const rows = (data.daily?.time || []).map((time, index) => ({
+    time,
+    discharge: discharge[index] ?? null,
+    mean: mean[index] ?? null,
+    kind: time < today ? "issued" : "forecast",
+  }));
+  return {
+    latitude: data.latitude,
+    longitude: data.longitude,
+    rows,
+    published: rows.some((row) => row.discharge != null),
+    sourceUrl: url.toString(),
+    failed: false,
+  };
 }
 
 export async function searchPlaces(name, lang) {
@@ -115,13 +166,28 @@ export function outlookCopy(lang) {
   if (!pt) {
     return {
       title: "Flood outlook",
-      lead: "Click any point on the world map, search for a place, or pick an example. Rainfall is the Open-Meteo forecast for that point. The risk figure is calculated from those millimetres. It is not a river gauge, and it does not mean a road is safe.",
+      lead: "Click any point, search, or pick an example. The tables are the published forecast for that point. The percentage lower down is calculated on this page and is not a flood warning. No road is called safe.",
       search: "Search a place",
       searchButton: "Search",
       examples: "Examples",
       searchEmpty: "No place matched that name.",
       searchFailed: "Place search did not respond.",
       place: "Place",
+      publishedRain: "Published rainfall",
+      publishedRiver: "Published river discharge",
+      rainNote: "Daily totals and rain chance, as published by the Open-Meteo forecast.",
+      riverNote: "GloFAS discharge for the nearest published river cell, in cubic metres per second, beside the mean published for the same day.",
+      noRiver: "No discharge was published for the nearest river cell. No number was filled in.",
+      riverFailed: "The river service did not respond. No discharge was filled in.",
+      openRain: "Open the rainfall record",
+      openRiver: "Open the river record",
+      issued: "Issued",
+      ahead: "Forecast",
+      discharge: "Discharge",
+      mean: "Published mean",
+      cell: "Published cell",
+      calculated: "Calculated on this page",
+      calculatedNote: "This percentage is not a published warning. It is calculated here from the rainfall above.",
       forecast: "Next 7 days",
       why: "How this number is made",
       tipsTitle: "What to do",
@@ -136,7 +202,7 @@ export function outlookCopy(lang) {
       max: "Highest forecast day",
       scaled: "30-day figure, scaled from those 7 days",
       index: "Rainfall index",
-      source: "Source: Open-Meteo forecast. Radar: RainViewer. Map: OpenStreetMap.",
+      source: "Rainfall: Open-Meteo forecast. River: GloFAS through the Open-Meteo flood API. Radar: RainViewer. Map: OpenStreetMap.",
       streets: "Streets",
       satellite: "Satellite",
       radar: "Rain radar",
@@ -153,13 +219,28 @@ export function outlookCopy(lang) {
   }
   return {
     title: "Perspectiva de inundação",
-    lead: "Clique em qualquer ponto do mapa-mundo, procure um lugar ou escolha um exemplo. A chuva é a previsão Open-Meteo desse ponto. O valor de risco é calculado a partir desses milímetros. Não é uma medição de rio e não significa que uma estrada esteja segura.",
+    lead: "Clique num ponto, procure ou escolha um exemplo. As tabelas são a previsão publicada desse ponto. A percentagem mais abaixo é calculada nesta página e não é um aviso de inundação. Nenhuma estrada é dada como segura.",
     search: "Procurar um lugar",
     searchButton: "Procurar",
     examples: "Exemplos",
     searchEmpty: "Nenhum lugar corresponde a esse nome.",
     searchFailed: "A procura de lugares não respondeu.",
     place: "Local",
+    publishedRain: "Chuva publicada",
+    publishedRiver: "Descarga de rio publicada",
+    rainNote: "Totais diários e probabilidade de chuva, como a previsão Open-Meteo os publica.",
+    riverNote: "Descarga GloFAS da célula de rio publicada mais próxima, em metros cúbicos por segundo, ao lado da média publicada para o mesmo dia.",
+    noRiver: "Não foi publicada descarga para a célula de rio mais próxima. Nenhum número foi preenchido.",
+    riverFailed: "O serviço de rios não respondeu. Nenhuma descarga foi preenchida.",
+    openRain: "Abrir o registo da chuva",
+    openRiver: "Abrir o registo do rio",
+    issued: "Já emitido",
+    ahead: "Previsão",
+    discharge: "Descarga",
+    mean: "Média publicada",
+    cell: "Célula publicada",
+    calculated: "Calculado nesta página",
+    calculatedNote: "Esta percentagem não é um aviso publicado. É calculada aqui a partir da chuva acima.",
     forecast: "Próximos 7 dias",
     why: "Como este número é feito",
     tipsTitle: "O que fazer",
@@ -174,7 +255,7 @@ export function outlookCopy(lang) {
     max: "Dia com mais chuva prevista",
     scaled: "Valor de 30 dias, escalado a partir desses 7 dias",
     index: "Índice de chuva",
-    source: "Fonte: previsão Open-Meteo. Radar: RainViewer. Mapa: OpenStreetMap.",
+    source: "Chuva: previsão Open-Meteo. Rio: GloFAS pela API de cheias Open-Meteo. Radar: RainViewer. Mapa: OpenStreetMap.",
     streets: "Ruas",
     satellite: "Satélite",
     radar: "Radar de chuva",

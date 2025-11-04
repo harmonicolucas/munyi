@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import FloodMap from "../components/FloodMap";
-import { PLACES, fetchOutlook, outlookCopy, rainRadarTemplate, reasonLines, riskWord, searchPlaces } from "../lib/forecast";
+import { PLACES, fetchOutlook, fetchRiver, formatFlow, outlookCopy, rainRadarTemplate, reasonLines, riskWord, searchPlaces } from "../lib/forecast";
 import { useCopy } from "../i18n";
 import { useStore } from "../store";
 
@@ -18,6 +18,7 @@ export default function MapPage() {
   const [method, setMethod] = useState("heuristic");
   const [selected, setSelected] = useState(null);
   const [outlook, setOutlook] = useState(null);
+  const [river, setRiver] = useState(null);
   const [status, setStatus] = useState("");
   const [query, setQuery] = useState("");
   const [hits, setHits] = useState([]);
@@ -33,13 +34,20 @@ export default function MapPage() {
   async function choose(lat, lng, name, zoom) {
     setSelected({ lat, lng, name: name || `${lat.toFixed(3)}, ${lng.toFixed(3)}`, zoom });
     setOutlook(null);
+    setRiver(null);
     setStatus("loading");
-    try {
-      setOutlook(await fetchOutlook(lat, lng));
+    const [rain, flow] = await Promise.allSettled([fetchOutlook(lat, lng), fetchRiver(lat, lng)]);
+    if (rain.status === "fulfilled") {
+      setOutlook(rain.value);
       setStatus("ready");
-    } catch {
+    } else {
       setStatus("failed");
     }
+    setRiver(flow.status === "fulfilled" ? flow.value : { published: false, failed: true, rows: [] });
+  }
+
+  function dayLabel(time) {
+    return new Date(`${time}T12:00:00Z`).toLocaleDateString(locale, { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
   }
 
   async function onSearch(event) {
@@ -135,8 +143,72 @@ export default function MapPage() {
         ) : null}
         {status === "loading" ? <p role="status">{f.loading}</p> : null}
         {status === "failed" ? <p className="error" role="alert">{f.failed}</p> : null}
+        {outlook ? (
+          <>
+            <h2>{f.publishedRain}</h2>
+            <p className="note">{f.rainNote}</p>
+            <p className="note">{f.cell}: {outlook.latitude.toFixed(3)}, {outlook.longitude.toFixed(3)}</p>
+            <table className="days">
+              <thead>
+                <tr>
+                  <th>{f.place}</th>
+                  <th>{f.issued}</th>
+                  <th>{f.rain}</th>
+                  <th>{f.chance}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {outlook.days.map((row) => (
+                  <tr key={row.time}>
+                    <td>{dayLabel(row.time)}</td>
+                    <td>{row.kind === "issued" ? f.issued : f.ahead}</td>
+                    <td>{row.rain.toFixed(1)} mm</td>
+                    <td>{row.probability == null ? "—" : `${row.probability}%`}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p><a href={outlook.sourceUrl} target="_blank" rel="noreferrer">{f.openRain}</a></p>
+          </>
+        ) : null}
+        {river ? (
+          <>
+            <h2>{f.publishedRiver}</h2>
+            {river.failed ? <p className="error" role="alert">{f.riverFailed}</p> : null}
+            {!river.failed && !river.published ? <p>{f.noRiver}</p> : null}
+            {river.published ? (
+              <>
+                <p className="note">{f.riverNote}</p>
+                <p className="note">{f.cell}: {river.latitude.toFixed(3)}, {river.longitude.toFixed(3)}</p>
+                <table className="days">
+                  <thead>
+                    <tr>
+                      <th>{f.place}</th>
+                      <th>{f.issued}</th>
+                      <th>{f.discharge}</th>
+                      <th>{f.mean}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {river.rows.map((row) => (
+                      <tr key={row.time}>
+                        <td>{dayLabel(row.time)}</td>
+                        <td>{row.kind === "issued" ? f.issued : f.ahead}</td>
+                        <td>{formatFlow(row.discharge)} m³/s</td>
+                        <td>{formatFlow(row.mean)} m³/s</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </>
+            ) : null}
+            {river.sourceUrl ? <p><a href={river.sourceUrl} target="_blank" rel="noreferrer">{f.openRiver}</a></p> : null}
+          </>
+        ) : null}
         {outlook && active ? (
           <>
+            <h2>{f.calculated}</h2>
+            <p className="note">{f.calculatedNote}</p>
             <div className="method" role="group" aria-label={f.why}>
               <button type="button" aria-pressed={method === "heuristic"} onClick={() => setMethod("heuristic")}>
                 {f.methodRain}
@@ -149,25 +221,6 @@ export default function MapPage() {
               <span>{riskWord(active.label, store.lang)}</span>
               <strong>{active.percent}%</strong>
             </p>
-            <h2>{f.forecast}</h2>
-            <table className="days">
-              <thead>
-                <tr>
-                  <th>{f.place}</th>
-                  <th>{f.rain}</th>
-                  <th>{f.chance}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {outlook.future.map((row) => (
-                  <tr key={row.time}>
-                    <td>{new Date(`${row.time}T12:00:00Z`).toLocaleDateString(locale, { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" })}</td>
-                    <td>{row.rain.toFixed(1)} mm</td>
-                    <td>{row.probability == null ? "—" : `${row.probability}%`}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
             <h2>{f.why}</h2>
             <ul className="reasons">
               {reasonLines(outlook, store.lang).map((line) => (

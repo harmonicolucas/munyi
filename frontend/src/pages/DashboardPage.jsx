@@ -18,11 +18,11 @@ export default function DashboardPage() {
       <h1>{t.dashTitle}</h1>
       <p className="lead">{t.dashLead}</p>
       <section className="stats">
-        <article className="card"><span>{t.total}</span><strong>{stats?.total ?? "—"}</strong></article>
-        <article className="card"><span>{t.pending}</span><strong>{stats?.pending_confirmation ?? "—"}</strong></article>
-        <article className="card"><span>{t.active}</span><strong>{stats?.active_alerts ?? "—"}</strong></article>
-        <article className="card"><span>{t.images}</span><strong>{stats?.images ?? "—"}</strong></article>
-        <article className="card"><span>{t.groups}</span><strong>{stats?.possible_duplicate_groups ?? "—"}</strong></article>
+        <article className="card"><span>{t.total}</span><strong>{stats?.total ?? "-"}</strong></article>
+        <article className="card"><span>{t.pending}</span><strong>{stats?.pending_confirmation ?? "-"}</strong></article>
+        <article className="card"><span>{t.active}</span><strong>{stats?.active_alerts ?? "-"}</strong></article>
+        <article className="card"><span>{t.images}</span><strong>{stats?.images ?? "-"}</strong></article>
+        <article className="card"><span>{t.groups}</span><strong>{stats?.possible_duplicate_groups ?? "-"}</strong></article>
       </section>
       <section className="card" style={{ marginTop: 16 }}>
         <h2>{t.areas}</h2>

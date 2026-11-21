@@ -2,7 +2,7 @@
 
 Confirm the live form before sending. Deadline published by the organizers: 4 November 2026, 9:00 PM ET.
 
-Suggested title: **MUNYI — From the first evidence to inclusive evacuation**
+Suggested title: **MUNYI - From the first evidence to inclusive evacuation**
 
 Theme: **Build for Your World**
 

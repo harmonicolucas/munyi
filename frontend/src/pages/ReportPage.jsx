@@ -151,7 +151,7 @@ export default function ReportPage() {
         setChannel("voice");
         setInfo(t.transcript);
       } else {
-        setError(data.error || "—");
+        setError(data.error || "-");
       }
     } catch (err) {
       setError(err.response?.data?.detail || err.message);

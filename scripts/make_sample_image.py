@@ -23,7 +23,7 @@ def main() -> None:
     draw.rectangle((620, 430, 760, 500), fill="#24343c")
     draw.rectangle((150, 250, 190, 360), fill="#8fb8c4")
     draw.rectangle((560, 230, 640, 360), fill="#8fb8c4")
-    label = "IMAGEM SINTETICA DE TESTE — NAO E UMA FOTOGRAFIA"
+    label = "IMAGEM SINTETICA DE TESTE - NAO E UMA FOTOGRAFIA"
     draw.rectangle((24, 24, 760, 64), fill="#07131a")
     draw.text((36, 34), label, fill="#f4f1ea")
     image.save(OUT, format="PNG")

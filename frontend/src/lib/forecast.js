@@ -93,7 +93,7 @@ export function riverUrl(lat, lng) {
 }
 
 export function formatFlow(value) {
-  if (value == null || Number.isNaN(value)) return "—";
+  if (value == null || Number.isNaN(value)) return "-";
   const abs = Math.abs(value);
   if (abs >= 100) return value.toFixed(0);
   if (abs >= 10) return value.toFixed(1);

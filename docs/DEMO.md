@@ -13,19 +13,19 @@ O quinto relato de demonstração, já semeado, diz que a água na mesma rua est
 
 ## Roteiro de vídeo (até 3 minutos)
 
-0:00 — Inundações em Maputo e a pergunta: o que faz uma pessoa com uma fotografia e sem saber se a rua é segura.
+0:00 - Inundações em Maputo e a pergunta: o que faz uma pessoa com uma fotografia e sem saber se a rua é segura.
 
-0:20 — Enviar o relato da escola. Mostrar gravidade alta, confirmação humana e a frase “Nenhuma estrada foi classificada como segura.”
+0:20 - Enviar o relato da escola. Mostrar gravidade alta, confirmação humana e a frase “Nenhuma estrada foi classificada como segura.”
 
-0:50 — Enviar o segundo relato da mesma rua. Mostrar o grupo e a contradição com o relato em que a água desce.
+0:50 - Enviar o segundo relato da mesma rua. Mostrar o grupo e a contradição com o relato em que a água desce.
 
-1:20 — Abrir a imagem sintética e explicar o SAM: máscara visual, não profundidade. Se a chave estiver activa, mostrar a resposta; se não, mostrar o estado “indisponível”.
+1:20 - Abrir a imagem sintética e explicar o SAM: máscara visual, não profundidade. Se a chave estiver activa, mostrar a resposta; se não, mostrar o estado “indisponível”.
 
-1:50 — Mapa. Troço Baixa–Escola excluído. Percurso de teste até ao ponto fictício do Alto Maé. Ler o aviso de que não é evacuação real.
+1:50 - Mapa. Troço Baixa-Escola excluído. Percurso de teste até ao ponto fictício do Alto Maé. Ler o aviso de que não é evacuação real.
 
-2:20 — Ouvir o alerta, aumentar o texto e ligar o contraste.
+2:20 - Ouvir o alerta, aumentar o texto e ligar o contraste.
 
-2:40 — Nomear Muse Spark 1.3, SAM 3.1 e Muse Voice Transcribe. Dizer que a chave não está no site público e que não há métrica de precisão inventada.
+2:40 - Nomear Muse Spark 1.3, SAM 3.1 e Muse Voice Transcribe. Dizer que a chave não está no site público e que não há métrica de precisão inventada.
 
 Grave em ecrã inteiro, com o áudio do alerta. Publique no YouTube ou Vimeo como vídeo público, com menos de 3 minutos.
 

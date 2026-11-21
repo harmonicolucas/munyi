@@ -163,7 +163,7 @@ export default function MapPage() {
                     <td>{dayLabel(row.time)}</td>
                     <td>{row.kind === "issued" ? f.issued : f.ahead}</td>
                     <td>{row.rain.toFixed(1)} mm</td>
-                    <td>{row.probability == null ? "—" : `${row.probability}%`}</td>
+                    <td>{row.probability == null ? "-" : `${row.probability}%`}</td>
                   </tr>
                 ))}
               </tbody>

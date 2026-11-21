@@ -1,7 +1,7 @@
 {
   "label": {
-    "pt": "Rede viária de teste — Maputo",
-    "en": "Test road network — Maputo"
+    "pt": "Rede viária de teste - Maputo",
+    "en": "Test road network - Maputo"
   },
   "disclaimer": {
     "pt": "Percurso de demonstração numa rede viária de teste. Não é uma rota real de evacuação. Não confirma que alguma estrada esteja segura.",
@@ -34,12 +34,12 @@
     {"id": "hulene", "name": "Hulene", "lat": -25.93, "lng": 32.575}
   ],
   "edges": [
-    {"id": "baixa-alto_mae", "from": "baixa", "to": "alto_mae", "name": "Troço de teste Baixa–Alto Maé"},
-    {"id": "baixa-malhangalene", "from": "baixa", "to": "malhangalene", "name": "Troço de teste Baixa–Malhangalene"},
-    {"id": "malhangalene-alto_mae", "from": "malhangalene", "to": "alto_mae", "name": "Troço de teste Malhangalene–Alto Maé"},
-    {"id": "baixa-escola", "from": "baixa", "to": "escola", "name": "Troço de teste Baixa–Escola"},
-    {"id": "escola-polana", "from": "escola", "to": "polana", "name": "Troço de teste Escola–Polana"},
-    {"id": "malhangalene-hulene", "from": "malhangalene", "to": "hulene", "name": "Troço de teste Malhangalene–Hulene"}
+    {"id": "baixa-alto_mae", "from": "baixa", "to": "alto_mae", "name": "Troço de teste Baixa-Alto Maé"},
+    {"id": "baixa-malhangalene", "from": "baixa", "to": "malhangalene", "name": "Troço de teste Baixa-Malhangalene"},
+    {"id": "malhangalene-alto_mae", "from": "malhangalene", "to": "alto_mae", "name": "Troço de teste Malhangalene-Alto Maé"},
+    {"id": "baixa-escola", "from": "baixa", "to": "escola", "name": "Troço de teste Baixa-Escola"},
+    {"id": "escola-polana", "from": "escola", "to": "polana", "name": "Troço de teste Escola-Polana"},
+    {"id": "malhangalene-hulene", "from": "malhangalene", "to": "hulene", "name": "Troço de teste Malhangalene-Hulene"}
   ],
   "shelters": [
     {

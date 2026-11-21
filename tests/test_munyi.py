@@ -128,6 +128,25 @@ def test_parser_drops_coordinates_from_model_json():
     assert parsed["summary"] == "Água na escola"
 
 
+def test_reports_without_a_time_are_not_treated_as_the_same_moment():
+    undated = report(description=SCHOOL, latitude=-25.96, longitude=32.59, created_at=None)
+    dated = report(description=SCHOOL, latitude=-25.9601, longitude=32.5901)
+    assert related(undated, dated) is False
+
+
+def test_mixed_timezones_are_not_grouped():
+    from datetime import timezone
+
+    local = report(description=SCHOOL, latitude=-25.96, longitude=32.59, created_at=datetime(2026, 11, 4, 12, 0, 0))
+    aware = report(
+        description=SCHOOL,
+        latitude=-25.9601,
+        longitude=32.5901,
+        created_at=datetime(2026, 11, 4, 12, 0, 0, tzinfo=timezone.utc),
+    )
+    assert related(local, aware) is False
+
+
 def test_old_reports_are_not_grouped():
     now = datetime(2026, 11, 4, 12, 0, 0)
     left = report(description=SCHOOL, latitude=-25.96, longitude=32.59, created_at=now)

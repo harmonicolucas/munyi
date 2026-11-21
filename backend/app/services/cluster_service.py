@@ -9,7 +9,9 @@ def _hours(left, right) -> float:
     a = getattr(left, "created_at", None)
     b = getattr(right, "created_at", None)
     if not isinstance(a, datetime) or not isinstance(b, datetime):
-        return 0.0
+        return float("inf")
+    if (a.tzinfo is None) != (b.tzinfo is None):
+        return float("inf")
     return abs((a - b).total_seconds()) / 3600
 
 
